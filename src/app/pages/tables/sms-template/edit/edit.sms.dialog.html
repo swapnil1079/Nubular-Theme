@@ -1,0 +1,47 @@
+<nb-card>
+    <nb-card-header>Edit Details
+
+
+        <span class="buttons" (click)="onNoClick()" style="float: right;">
+            <button _ngcontent-c24="" class="button">
+                <i _ngcontent-c24="" class="nb-close"></i>
+            </button>
+        </span>
+
+    </nb-card-header>
+    <nb-card-body fullWidth>
+        <form [formGroup]="myForm" (ngSubmit)="update(myForm)" novalidate>
+            <div class="form-group row">
+                <label for="name" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                    <input nbInput type="text" id="name" class="fadeIn second" placeholder="Enter Template Name" name="name" formControlName="name"
+                        [(ngModel)]="model.name" required>
+                    <show-errors [control]="myForm.controls.name"></show-errors>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="body" class="col-sm-3 col-form-label">Body</label>
+                <div class="col-sm-9">
+                    <textarea id="body" name="body" class="fadeIn second" formControlName="body" class="form-control" placeholder="Enter Template Body"
+                        [(ngModel)]="model.body" required maxlength="140"></textarea>
+                    <show-errors [control]="myForm.controls.body"></show-errors>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="originator" class="col-sm-3 col-form-label">Originator</label>
+                <div class="col-sm-9">
+                    <input nbInput type="text" id="originator" class="fadeIn second" placeholder="Originator" name="originator" formControlName="originator"
+                        [(ngModel)]="model.originator" required>
+                    <show-errors [control]="myForm.controls.originator"></show-errors>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="active" class="col-sm-3 col-form-label">Active</label>
+                <div class="col-sm-3">
+                    <ui-switch id="active" name="active" formControlName="active" [(ngModel)]="model.active"></ui-switch>
+                </div>
+            </div>
+            <input type="submit" nbButton class="fadeIn fourth" value="Update" [disabled]="myForm.invalid || myForm.pending">
+
+            <!-- <button nbButton  (click)="onNoClick()">Cancle</button> -->
+        </form>

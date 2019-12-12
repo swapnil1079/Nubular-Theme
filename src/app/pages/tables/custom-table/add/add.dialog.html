@@ -1,0 +1,101 @@
+<nb-card>
+    <nb-card-header>Add Email Templates
+        <span class="buttons" (click)="onNoClick()" style="float: right;">
+            <button _ngcontent-c24="" class="button">
+                <i _ngcontent-c24="" class="nb-close"></i>
+            </button>
+        </span>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="myForm" (ngSubmit)="submit(myForm)" novalidate>
+            <div class="form-group row">
+                <label for="name" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                    <input nbInput type="text" id="name" class="fadeIn second" placeholder="Enter Template Name" name="name" formControlName="name"
+                        required>
+                    <show-errors [control]="myForm.controls.name"></show-errors>
+                </div>
+            </div>
+            <!-- <div class="form-group row">
+                <label for="locale" class="col-sm-3 col-form-label">Locale</label>
+                <div class="col-sm-9">
+                        <select class="form-control" name="locale" formControlName="locale" [(ngModel)]="Defaultlocale"  required>
+                                <option *ngFor="let list of Optionmodel" [ngValue]="list.locale">
+                                    {{list.displayName}}
+                                </option>
+                            </select>
+                    <show-errors [control]="myForm.controls.locale"></show-errors>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="defaultSubject" class="col-sm-3 col-form-label">Default Subject</label>
+                <div class="col-sm-9">
+                    <input nbInput type="text" id="defaultSubject" class="fadeIn second" placeholder="Enter Subject" name="defaultSubject" formControlName="defaultSubject"
+                        required>
+                    <show-errors [control]="myForm.controls.defaultSubject"></show-errors>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="displayFromName" class="col-sm-3 col-form-label">Display From Name</label>
+                <div class="col-sm-9">
+                    <input nbInput type="text" id="displayFromName" class="fadeIn second" placeholder="From Name" name="displayFromName" formControlName="displayFromName" required>
+                    <show-errors [control]="myForm.controls.displayFromName"></show-errors>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="body" class="col-sm-3 col-form-label">Body</label>
+                <div class="col-sm-9">
+                    <ckeditor id="body" name="body" formControlName="body" [config]="{ extraPlugins: 'divarea', height: '200' }" required></ckeditor>
+                    <show-errors [control]="myForm.controls.body"></show-errors>
+                </div>
+            </div> -->
+            <div formArrayName="template" class="remove-link accordian-style">
+                <div class="btm-brdr">
+                    <p>Email Template</p>
+                </div>
+                <div *ngFor="let address of myForm.get('template')['controls']; let i=index;">
+                    <nb-accordion>
+                        <nb-accordion-item>
+                            <nb-accordion-item-header>
+
+                                <div class="col-md-12 row">
+                                    <div class="col-md-11">
+                                        <label> Locale Email-Template - {{i + 1}}</label>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <span *ngIf="myForm.controls.template.controls.length > 1 && i!=0" (click)="removeAddress(i)" class="removelink"> Remove
+                                        </span>
+                                    </div>
+                                </div>
+                            </nb-accordion-item-header>
+                            <nb-accordion-item-body>
+                                <locale-address class="form-width" [group]="myForm.controls.template.controls[i]" [itemIndex]="i"></locale-address>
+                            </nb-accordion-item-body>
+                        </nb-accordion-item>
+                    </nb-accordion>
+                </div>
+            </div>
+            <div class="row">
+                <a class="a-link" (click)="addAddress()">
+                    Create More Email Template
+                </a>
+            </div>
+
+            <div class="form-group row">
+                <label for="active" class="col-sm-3 col-form-label">Active</label>
+                <div class="col-sm-3">
+                    <ui-switch id="active" name="active" formControlName="active" [(ngModel)]="model.active"></ui-switch>
+                </div>
+                <label for="confidential" class="col-sm-3 col-form-label">Confidential</label>
+                <div class="col-sm-3">
+                    <ui-switch id="confidential" name="confidential" formControlName="confidential" [(ngModel)]="model.confidential"></ui-switch>
+                </div>
+            </div>
+            <input type="submit" nbButton class="fadeIn fourth" value="Create" [disabled]="myForm.invalid || myForm.pending">
+
+
+        </form>
+
+    </nb-card-body>
+</nb-card>

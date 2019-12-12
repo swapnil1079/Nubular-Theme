@@ -1,0 +1,4 @@
+<div *ngIf="message && message.text" class="alert alert-{{message.class}}">
+  {{message.text}}
+  <a class="close" (click)="clearMessage(alert)">&times;</a>
+</div>

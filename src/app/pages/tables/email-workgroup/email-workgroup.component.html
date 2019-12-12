@@ -1,0 +1,123 @@
+<angular-loader></angular-loader>
+<nb-card>
+    <nb-card-header>
+        Email WorkFlow
+    </nb-card-header>
+
+    <nb-card-body>
+
+
+
+        <div class="col-xs-12 hidden-add-block add-device" *ngIf="showCreate">
+            <div *ngIf="showCreate">
+                <create-user (closeModal)='closeModal($event)'></create-user>
+            </div>
+
+        </div>
+        <div class="col-xs-12 hidden-add-block add-device" *ngIf="showEdit">
+            <div *ngIf="showEdit">
+                <edit-user [userModel]="editModel" (closeModal)='closeModal($event)'></edit-user>
+            </div>
+
+        </div>
+        <div class="table-responsive user-list" *ngIf="showList">
+            <div class="col-md-12 col-lg-12 col-xxxl-12">
+                <div class="col-md-1 Addbutton-left-margin-class">
+                    <button type="button" class="btn btn-success notification-create-button " (click)="CreateWorkFlow()">Create Workflow
+                        <!-- <i class="fa fa-plus"></i> -->
+                    </button>
+                </div>
+                <div class="col-md-4 search-box-right-margin" id="right-id-style">
+                    <span>
+                        <input nbInput [(ngModel)]="asyncSelected" [typeahead]="dataSource" [typeaheadMinLength]="3" (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                            (keydown.backspace)="typeaheadOnBlur($event)" typeaheadOptionField="name" placeholder="Search Email WorkGroup"
+                            [typeaheadScrollable]=true class="form-control">
+                    </span>
+                    <span class="serach-cross">
+                        <a (click)="getEmailWorkgroupList();">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </span>
+                </div>
+                <!-- <div class="container-btn col-md-3">
+          
+        </div> -->
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+
+
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Start Time</th>
+
+                        <!-- <th>End Time</th> -->
+                        <th>Email in Sequence</th>
+                        <th>Email Sent</th>
+                        <th>Email Opened</th>
+                        <th>Recipients</th>
+                        <th>Unsubscribe</th>
+                        <th>Recurrence</th>
+                        <th>Actions</th>
+                        <th>Report</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of usersList">
+
+                        <td>{{item.name}} </td>
+                        <td>{{item.description}} </td>
+                        <td>
+                            {{item.status}}
+                        </td>
+                        <td> {{item.startTime | time}}</td>
+
+                        <!-- <td> {{item.endTime | time}}</td> -->
+                        <td>{{item.items.length}}</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>
+                            {{item.recurrence | recurrence}}
+                        </td>
+
+                        <td class="ng2-smart-actions ng-star-inserted icon-font-size">
+                            <a class="ng2-smart-action-edit-edit ng-star-inserted action-items" (click)="editworkgroup(item)">
+                                <i class="nb-edit"></i>
+                            </a>
+                            <a class="ng2-smart-action-delete-delete ng-star-inserted action-items" tooltip="Delete" (click)="DeleteWorkGroup(item)">
+                                <i class="nb-trash"></i>
+                            </a>
+
+
+                        </td>
+                        <td class="ng2-smart-actions ng-star-inserted icon-font-size">
+                            <a _ngcontent-c54="" class="icon ng-star-inserted">
+                                <i _ngcontent-c54="" class="fa fa-book" tooltip="Report" (click)="ViewReport(item)"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                </tbody>
+                <div>
+                    <h5 *ngIf="usersList && usersList.length == 0">No Records Found.
+                    </h5>
+                </div>
+                <!--  <nav aria-label="Page navigation" >
+                        <ul *ngIf="usersList">
+                            <pagination [totalItems]="usersList.total" [itemsPerPage]="usersList.per_page" previousText="&lsaquo;" nextText="&rsaquo;"
+                                [maxSize]="5" [(ngModel)]="currentPage" (pageChanged)="listoperation($event)" [boundaryLinks]="true"
+                                firstText="&laquo;" lastText="&raquo;"></pagination>
+
+                        </ul>
+                    </nav> -->
+            </table>
+        </div>
+
+
+
+    </nb-card-body>
+</nb-card>

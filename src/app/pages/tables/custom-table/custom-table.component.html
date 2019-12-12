@@ -1,0 +1,97 @@
+<angular-loader></angular-loader>
+<nb-card>
+    <nb-card-header>
+        Email Template
+    </nb-card-header>
+
+    <nb-card-body>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <!-- <div class="col-md-1">
+        <button type="button" class="btn btn-success btn-icon" (click)="addNew()">
+            <i class="fa fa-plus"></i>
+        </button></div> -->
+            <div class="col-md-1">
+                <button type="button" class="btn btn-success notification-create-button Addbutton-left-margin-class " (click)="addNew()">Create Template
+                    <!-- <i class="fa fa-plus"></i> -->
+                </button>
+            </div>
+            <div class="col-md-4 search-box-right-margin" id="right-id-style">
+                <span>
+                    <input nbInput [(ngModel)]="asyncSelected" [typeahead]="dataSource" [typeaheadMinLength]="3" (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                        (keydown.backspace)="typeaheadOnBlur($event)" typeaheadOptionField="name" placeholder="Search Template"
+                        [typeaheadScrollable]=true class="form-control">
+                </span>
+                <span class="serach-cross">
+                    <a (click)="getUser();">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </span>
+            </div>
+            <!-- <div class="container-btn col-md-3">
+          <button class="btn btn-primary btn-demo" (click)="getUser();">Reset</button> 
+        </div> -->
+        </div>
+
+
+        <div class="table-responsive user-list">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Default Subject</th>
+                        <th>From Name</th>
+                        <!-- <th>Locale</th> -->
+                        <th>Confidential</th>
+
+                        <th>Active</th>
+                        <th>Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of usersList; let index=index;">
+                        <td>{{item.name}} </td>
+                        <td>{{item.template[0].defaultSubject}} </td>
+                        <td>{{item.template[0].displayFromName}} </td>
+                        <td>{{item.confidential}}</td>
+                        <td>
+                            {{item.active}}
+                        </td>
+
+                        <td class="ng2-smart-actions ng-star-inserted icon-font-size">
+                            <!-- <a class="ng2-smart-action ng2-smart-action-edit-edit ng-star-inserted" tooltip="Edit" (click)="editTemplate(item)"><i class="nb-edit"></i></a> -->
+                            <a class="ng2-smart-action-edit-edit ng-star-inserted action-items" (click)="editTemplate(item)">
+                                <i class="nb-edit"></i>
+                            </a>
+                            <a class="ng2-smart-action-delete-delete ng-star-inserted action-items" tooltip="Delete" (click)="DeleteTemplate(item)">
+                                <i class="nb-trash"></i>
+                            </a>
+
+
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+                <div>
+                    <h5 *ngIf="usersList && usersList.length == 0">No Records Found.
+                    </h5>
+                </div>
+                <!--  <nav aria-label="Page navigation" >
+                        <ul *ngIf="usersList">
+                            <pagination [totalItems]="usersList.total" [itemsPerPage]="usersList.per_page" previousText="&lsaquo;" nextText="&rsaquo;"
+                                [maxSize]="5" [(ngModel)]="currentPage" (pageChanged)="listoperation($event)" [boundaryLinks]="true"
+                                firstText="&laquo;" lastText="&raquo;"></pagination>
+
+                        </ul>
+                    </nav> -->
+            </table>
+        </div>
+
+
+
+    </nb-card-body>
+</nb-card>

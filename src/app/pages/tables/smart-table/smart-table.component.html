@@ -1,0 +1,113 @@
+<nb-card>
+  <nb-card-header>
+    Photo Gallery
+  </nb-card-header>
+
+  <!-- <nb-card-body>   -->
+     <!-- start -->
+     <!-- <div class="form-group text-center col-xs-12" appDragndrop (filesChangeEmiter)="onFilesChange($event)" [allowedExtensions]="['csv', 'txt']">
+      <img src="assets/images/upload.png" />
+      <input id="fileUpload" (change)="onChangeuploadFile($event, false)" accept=".csv,text/plain" type="file" />
+    </div>
+    <div class="col-sm-5 uplod-divv">
+      <label class="infomsg">Allowed Extensions - .txt, .csv </label>
+      <label *ngIf="filename" class="form-control">{{filename}}
+        <i class="fa fa-times" (click)="destroyFile()"></i>
+      </label>
+
+      <div class="text-danger">{{invalidFileMsg}}</div>
+      <button class="btn btn-primary upload-file" (click)="uploadFile(template)" [disabled]="!uploadFilebutton">Submit File</button>
+    </div> -->
+
+
+
+
+    <!-- <section class="upload-device-page">
+      <div class="col-md-10 col-sm-8 col-xs-12  right-content">
+        <div class="col-xs-12 content-container">
+      
+    
+    
+        
+          <div class="form-group text-center col-xs-12" appDragndrop (filesChangeEmiter)="onFilesChange($event)" [allowedExtensions]="['csv', 'txt']">
+            <img src="assets/images/upload.png" />
+            <input id="fileUpload" (change)="onChangeuploadFile($event, false)" accept="image/png, image/jpeg, image/png" type="file" />
+          </div>
+          <div class="clearfix"></div>
+          <div class="col-sm-5 uplod-divv">
+            <label class="infomsg">Allowed Extensions - .txt, .csv </label>
+            <label *ngIf="filename" class="form-control">{{filename}}
+              <i class="fa fa-times" (click)="destroyFile()"></i>
+            </label>
+    
+            <div class="text-danger">{{invalidFileMsg}}</div>
+            <button class="btn btn-primary upload-file" (click)="uploadFile(template)" [disabled]="!uploadFilebutton">Submit File</button>
+          </div>
+    
+    
+          <div class="clearfix"></div>
+    
+    
+    
+    
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </section> -->
+
+
+
+    <!-- <div class="fadeIn first">
+
+      <label for="file-upload" class="custom-file-upload">
+        <i class="fa fa-cloud-upload"></i> Upload Emirates ID
+      </label>
+      <img [src]="url" height="200">
+      <input id="file-upload" type="file" (change)="onSelectFile($event)" />
+
+    </div> -->
+
+
+    <!-- <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Bob" formControlName="name" required>
+      </div>
+      <div class="form-group">
+        <label for="avatar">Avatar</label>
+        <input type="file" multiple id="avatar" (change)="onFileChange($event)" #fileInput required>
+        <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
+      </div>
+      <button type="submit" [disabled]="form.invalid || loading" class="btn btn-success">Submit <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
+    </form> -->
+    <!-- <form [formGroup]="form" (ngSubmit)="onSubmit()"> -->
+    <img *ngFor='let url of urls; index as i'  [src]="url" height="200" width="200"> 
+    {{i}}
+<input type='file'  name="avtar"  (change)="onSelectFile($event)" multiple>
+<!-- </form> -->
+
+
+
+     <!-- <div class="container-fluid">
+        <div class="example-config">
+            <h6>Items: {{items | json}}</h6>
+        </div>
+      <kendo-sortable
+          [navigatable]="true"
+          [animation] = "true"
+          [kendoSortableBinding]="items"
+          class="row" 
+      >
+      <ng-template let-item="item">
+        <div class="item" (dblclick)="newid(item.url)">
+          <img class="img-pht-gallery"   [src]="item.url"  style="pointer-events: none;" />
+        </div>
+      </ng-template>
+      
+      </kendo-sortable>
+      
+  </div> -->
+
+    <!-- end -->
+  <!-- </nb-card-body> -->
+</nb-card>

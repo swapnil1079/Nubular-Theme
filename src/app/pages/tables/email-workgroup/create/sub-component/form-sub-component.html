@@ -1,0 +1,146 @@
+<!-- <div [formGroup]="form"> -->
+<!-- <label>Property One: </label>
+        <input type="text" formControlName="propertyOne"/>
+    
+        <label >Property Two: </label>
+        <input type="number" formControlName="propertyTwo"/> -->
+<!-- <div class="form-group">
+                <label for="name">Template Name</label>
+                <input nbInput type="text" id="name" name="name" formControlName="name" class="form-control" id="name" placeholder="T Name" required>
+                <show-errors [control]="form.controls.name"></show-errors>
+            </div>
+    </div> -->
+<div [formGroup]="adressForm">
+    <!-- <nb-checkbox [value]="useExisting"  (click)="clickevent($event);">Use Existing </nb-checkbox> -->
+    <!-- <input type="checkbox" [checked]="useExisting"  [(ngModel)]="useExisting" (change)="clickevent($event);" > -->
+    <!-- <div>
+        <input type="checkbox" [checked]="useExisting" [(ngModel)]="useExisting" (change)="clickevent($event.target.checked)"> Use Existing  </div> -->
+
+    <div class="form-group row" *ngIf="ShowOption">
+        <select class="form-control" name="EmailType" formControlName="EmailType" (change)="SelectedOption($event)" required>
+            <option [ngValue]=" ">Create New</option>
+            <option *ngFor="let list of Optionmodel" [ngValue]="list.name">
+                {{list.name}}
+            </option>
+        </select>
+    </div>
+    <div *ngIf="ShowList">
+
+
+        <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label">Template Name</label>
+            <div class="col-sm-9">
+                <input nbInput type="text" id="name" class="full-width" placeholder="Enter Name" name="name" formControlName="name" [readonly]="isreadonly"
+                    [(ngModel)]="model.name" required>
+                <show-errors [control]="adressForm.controls.name"></show-errors>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="templateName" class="col-sm-3 col-form-label">Name</label>
+            <div class="col-sm-9">
+                <input nbInput type="text" id="templateName" class="full-width" placeholder="Enter Name" name="templateName" formControlName="templateName"
+                    [(ngModel)]="model.templateName" required>
+                <show-errors [control]="adressForm.controls.templateName"></show-errors>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="notesDescription" class="col-sm-3 col-form-label">Notes/Description</label>
+            <div class="col-sm-9">
+                <textarea nbInput type="text" id="notesDescription" class="full-width" placeholder="Enter Name" name="notesDescription" formControlName="notesDescription"
+                    [(ngModel)]="model.notesDescription" required></textarea>
+                <show-errors [control]="adressForm.controls.notesDescription"></show-errors>
+            </div>
+        </div>
+        <div>
+            <!-- formArrayName="items" -->
+
+            <!-- <div  formArrayName="template"> -->
+
+
+            <!--  <input  nbInput type="text" name="displayFromName" id="displayFromName" formControlName="displayFromName" > -->
+            <!-- </div></div> -->
+            <div formArrayName="template">
+                <div *ngFor="let item of this.newgroup['controls'][this.itemIndex].controls['template']['controls']; let i = index;" class="remove-link edit-workflow-template-block-inside mrgn-btm-10">
+                    <div [formGroupName]="i">
+                    <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>
+                               <!-- {{(model.template[i].locale ? (model.template[i].locale | locale | async) : 'new locale')  }} -->
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                        <div class="row mrgn-left">
+                            <span></span>
+                            <span class="mrgn-btm-5">
+                                <i class="fa fa-times edit-remove-icon" *ngIf="this.newgroup['controls'][this.itemIndex].controls['template']['controls'].length > 1 && i!=0"
+                                    (click)="removeAddress1(i)"></i>
+                            </span>
+                        </div>
+                        <div class="form-group row">
+                            <label for="locale" class="col-sm-3 col-form-label">Locale</label>
+                            <div class="col-sm-9">
+                                <select class="full-width form-control" name="locale" formControlName="locale" (change)="localeevent($event,i);" [(ngModel)]="i==0 ? model.template[i].locale : model.template[i].locale "
+                                    [attr.disabled]="i==0 ? ' ' : null" required>
+                                    <option *ngFor="let list of Optionlocale" [value]="list.locale">
+                                        {{list.displayName}}
+                                    </option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="defaultSubject" class="col-sm-3 col-form-label">Default Subject</label>
+                            <div class="col-sm-9">
+                                <input nbInput type="text" id="defaultSubject" class="full-width" placeholder="Default Subject" name="defaultSubject" formControlName="defaultSubject"
+                                    [(ngModel)]="i==0 ? model.template[i].defaultSubject : model.template[i].defaultSubject"
+                                    required>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <!-- {{model.template[i].displayFromName ? model.template[i].displayFromName : 'undefined'}} -->
+                            <label for="displayFromName" class="col-sm-3 col-form-label">From Name</label>
+                            <div class="col-sm-9">
+                                <input nbInput type="text" id="displayFromName" class="full-width" placeholder="From Name" name="displayFromName" formControlName="displayFromName"
+                                    [(ngModel)]="i==0 ? model.template[i].displayFromName : model.template[i].displayFromName"
+                                    required>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="body" class="col-sm-3 col-form-label">Body</label>
+                            <div class="col-sm-9">
+                                <ckeditor id="body" name="body" formControlName="body" [config]="{ extraPlugins: 'divarea', height: '200' }" [(ngModel)]="i==0 ? model.template[i].body : model.template[i].body "
+                                    required></ckeditor>
+
+                            </div>
+                        </div>
+</nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="row">
+                <a class="a-link" (click)="addAddress1()">
+                    Create More locale
+                </a>
+            </div>
+            <div class="form-group row">
+                <label for="numberOfDaysToWait" class="col-sm-3 col-form-label">No. of Days to wait</label>
+                <div class="col-sm-4">
+                    <input nbInput type="number" id="numberOfDaysToWait" class="full-width" placeholder="Number of days to wait" name="numberOfDaysToWait"
+                        formControlName="numberOfDaysToWait" [(ngModel)]="model.numberOfDaysToWait" [readonly]="itemIndex == 0 "
+                        required>
+                    <show-errors [control]="adressForm.controls.numberOfDaysToWait"></show-errors>
+                </div>
+                <label for="sequentialOrder" class="col-sm-3 col-form-label">Sequential Order</label>
+                <div class="col-sm-3">
+                    <input nbInput type="number" id="sequentialOrder" class="full-width" placeholder="Sequence Order" name="sequentialOrder"
+                        formControlName="sequentialOrder" [(ngModel)]="model.sequentialOrder" [readonly]="itemIndex == 0" required>
+                    <show-errors [control]="adressForm.controls.sequentialOrder"></show-errors>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,49 @@
+<nb-card>
+    <nb-card-header>Edit Details
+
+
+        <span class="buttons" (click)="onNoClick()" style="float: right;">
+            <button _ngcontent-c24="" class="button">
+                <i _ngcontent-c24="" class="nb-close"></i>
+            </button>
+        </span>
+
+    </nb-card-header>
+    <nb-card-body fullWidth>
+        <form [formGroup]="myForm" (ngSubmit)="update(myForm.value)" novalidate>
+            <!-- <div class="form-group row">
+                <label for="name" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                    <input nbInput type="text" id="name" class="fadeIn second" placeholder="Enter Template Name" name="name" formControlName="name"
+                        [(ngModel)]="model.name" readonly required>
+                    <show-errors [control]="myForm.controls.name"></show-errors>
+                </div>
+            </div> -->
+            <div class="btm-brdr">
+                <p>WorkFlow Template</p>
+               </div>
+                
+                <div *ngFor="let item of template; let i = index;" class="remove-link edit-workflow-template-block mrgn-btm-10">
+
+                    <div class="row "><span class="wdth-97"></span><span class="mrgn-btm-5"><i class="fa fa-times edit-remove-icon" *ngIf="myForm.controls.template.controls.length > 1"  (click)="removeAddress(i)"></i></span>  
+                    </div>
+                  
+                    <template-details-fields [form]="myForm" [item]="item" [itemIndex]="i"  [groups]="myForm.controls.template.controls[i]"></template-details-fields>
+              
+                </div>
+                <a class="a-link" (click)="addNewTemplate()">Add New Template</a>
+            
+            <!-- <div class="form-group row">
+                <label for="active" class="col-sm-3 col-form-label">Active</label>
+                <div class="col-sm-3">
+                    <ui-switch id="active" name="active" formControlName="active" [(ngModel)]="model.active"></ui-switch>
+                </div>
+                <label for="confidential" class="col-sm-3 col-form-label">Confidential</label>
+                <div class="col-sm-3">
+                    <ui-switch id="confidential" name="confidential" formControlName="confidential" [(ngModel)]="model.confidential"></ui-switch>
+                </div>
+            </div> -->
+            <input type="submit" nbButton class="fadeIn fourth" value="Update" [disabled]="myForm.invalid || myForm.pending">
+
+            <!-- <button nbButton  (click)="onNoClick()">Cancle</button> -->
+        </form>

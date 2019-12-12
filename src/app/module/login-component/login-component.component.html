@@ -1,0 +1,51 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"> Sign In </h2>
+
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="./assets/images/eureka.png" id="" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <div *ngIf="loginform">
+      <form [formGroup]="myForm" (ngSubmit)="login(myForm)" novalidate>
+        <input type="text" id="username" class="fadeIn second" placeholder="Enter Your Username" name="username" formControlName="username"
+          required>
+        <show-errors [control]="myForm.controls.username"></show-errors>
+        <input type="password" id="password" class="fadeIn third" name="password" formControlName="password" placeholder="Enter Password"
+          required>
+        <show-errors [control]="myForm.controls.password"></show-errors>
+        <input type="submit" class="fadeIn fourth" value="Log In" [disabled]="myForm.invalid || myForm.pending">
+      </form>
+      <div id="formFooter">
+        <a class="underlineHover" (click)="registerblock()">Don't have an account? Click here</a>
+      </div>
+    </div>
+    <!-- Remind Passowrd -->
+    <!-- register  -->
+    <div *ngIf="registerform">
+      <form [formGroup]="RegisterForm" (ngSubmit)="register(RegisterForm)" novalidate>
+        <input type="text" id="firstName" class="fadeIn second" placeholder="Enter Your First Name" name="firstName" formControlName="firstName"
+          required>
+        <show-errors [control]="RegisterForm.controls.firstName"></show-errors>
+        <input type="text" id="lastName" class="fadeIn second" placeholder="Enter Your Last Name" name="lastName" formControlName="lastName"
+          required>
+        <show-errors [control]="RegisterForm.controls.lastName"></show-errors>
+        <input type="text" id="username" class="fadeIn second" placeholder="Enter Your Username To login" name="username" formControlName="username"
+          required>
+        <show-errors [control]="RegisterForm.controls.username"></show-errors>
+        <input type="password" id="password" class="fadeIn third" name="password" formControlName="password" placeholder="Enter Password"
+          required>
+        <show-errors [control]="RegisterForm.controls.password"></show-errors>
+        <input type="submit" class="fadeIn fourth" value="Register Yourself" [disabled]="RegisterForm.invalid || RegisterForm.pending">
+      </form>
+      <div id="formFooter">
+        <a class="underlineHover" (click)="loginblock()">Click here to login</a>
+      </div>
+
+    </div>
+  </div>
+</div>

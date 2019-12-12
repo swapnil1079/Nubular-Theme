@@ -1,0 +1,43 @@
+<div [formGroup]="adressForm">
+
+    <div *ngIf="ShowList">
+
+        <div class="form-group">
+            <label for="defaultSubject" class=" col-form-label">Subject</label>
+            <div class="">
+                <input nbInput type="text" id="defaultSubject" class="full-width" placeholder="Enter Subject" name="defaultSubject" formControlName="defaultSubject"
+                    [(ngModel)]="model.subject" required>
+                <show-errors [control]="adressForm.controls.defaultSubject"></show-errors>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="displayFromName" class=" col-form-label">From Name</label>
+            <div class="">
+                <input nbInput type="text" id="displayFromName" class="full-width" placeholder="From Name" name="displayFromName" formControlName="displayFromName"
+                    [(ngModel)]="model.displayFromName" required>
+                <show-errors [control]="adressForm.controls.displayFromName"></show-errors>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="locale" class=" col-form-label">Locale</label>
+            <div class="">
+                <select class="full-width form-control" name="locale" formControlName="locale" [(ngModel)]="model.locale" [attr.disabled]="itemIndex==0 ? ' ' : null"
+                    required>
+                    <option *ngFor="let list of Optionlocale" [value]="list.locale">
+                        {{list.displayName}}
+                    </option>
+                </select>
+                <show-errors [control]="adressForm.controls.locale"></show-errors>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="body" class="col-form-label">Body</label>
+            <div class="">
+                <ckeditor id="body" name="body" formControlName="body" [config]="{ extraPlugins: 'divarea', height: '200' }" required></ckeditor>
+                <show-errors [control]="adressForm.controls.body"></show-errors>
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="col-md-12 col-lg-12 col-xxxl-12">
+    <nb-card>
+        <nb-card-header>Create Email WorkFlow
+            <span class="buttons" (click)="closeModel()" style="float: right;">
+                <button _ngcontent-c24="" class="button">
+                    <i _ngcontent-c24="" class="nb-close"></i>
+                </button>
+            </span>
+        </nb-card-header>
+        <nb-card-body>
+
+            <form [formGroup]="myForm" (ngSubmit)="onFirstSubmit(myForm)">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name">Template Name</label>
+                            <input nbInput type="text" id="name" name="name" formControlName="name" class="form-control" id="name" placeholder="Template Name"
+                                [style.height]="'48px'">
+                            <show-errors [control]="myForm.controls.name"></show-errors>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" formControlName="description" class="form-control" placeholder="Enter Description"
+                                maxlength="140" required></textarea>
+                            <show-errors [control]="myForm.controls.description"></show-errors>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select class="form-control" id="status" formControlName="status" [(ngModel)]="selected.value" name="status" required>
+                                <option *ngFor="let list of Type" [value]="list.value" [selected]="list == selected">
+                                    {{list.name}}
+                                </option>
+                            </select>
+                            <show-errors [control]="myForm.controls.status"></show-errors>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <!-- <div class="form-group"> -->
+
+                        <label id="right-id-style">Recurrence</label>
+                        <ui-switch id="right-id-style" name="recurrence" formControlName="recurrence" [(ngModel)]="recurrence"></ui-switch>
+                        <!-- </div> -->
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="startTime">Select Start Time</label>
+
+                            <input nbInput class="form-control" placeholder="Select Start Time" [style.height]="'48px'" [selectMode]="'single'" [owlDateTimeTrigger]="dtRange1"
+                                [owlDateTime]="dtRange1" formControlName="startTime" id="startTime" name="startTime" required>
+                            <owl-date-time #dtRange1></owl-date-time>
+                        </div>
+                    </div>
+                </div>
+
+                <button nbButton *ngIf="!EnableSecond" type="submit" [disabled]="!myForm.valid">Next</button>
+
+            </form>
+
+            <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" *ngIf="EnableSecond" [hidden]="!myForm.valid">
+
+                <div formArrayName="items" class="remove-link accordian-style">
+                    <div class="btm-brdr">
+                        <p>WorkFlow Template</p>
+                    </div>
+                    <div *ngFor="let address of secondForm.get('items')['controls']; let i=index;">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>
+
+                                    <div class="col-md-12 row">
+                                        <div class="col-md-11">
+                                            <label> Email Template - {{i + 1}}</label>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <span *ngIf="secondForm.controls.items.controls.length > 1" (click)="removeAddress(i)" class="removelink"> Remove
+                                            </span>
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <address class="form-width" [group]="secondForm.controls.items.controls[i]" [itemIndex]="i" [newgroup]="secondForm.controls.items"></address>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+                </div>
+                <div class="row">
+                    <a class="a-link" (click)="addAddress()">
+                        Create More Email Template
+                    </a>
+                </div>
+                <div>
+                    <div>
+
+                        <button nbButton type="submit" [disabled]="!secondForm.valid">Confirm</button>
+                    </div>
+                </div>
+            </form>
+
+        </nb-card-body>
+    </nb-card>
+</div>

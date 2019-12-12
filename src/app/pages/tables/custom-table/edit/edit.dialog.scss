@@ -1,0 +1,20 @@
+@import '../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  input {
+    width: 100%;
+  }
+
+  .btn-success {
+    margin-left: 1rem;
+  }
+}
+.cdk-overlay-pane
+{
+	height :100% !important;
+}
+
+.mat-dialog-container
+{
+	overflow-x : scroll !important;
+}

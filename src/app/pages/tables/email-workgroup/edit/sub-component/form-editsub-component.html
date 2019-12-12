@@ -1,0 +1,151 @@
+<div [formGroup]="form">
+    <div class="car-wrap" formArrayName="items">
+        <div [ngClass]="item.name + '-car'" [formGroupName]="itemIndex">
+
+            <div class="form-group row edit-template-option" *ngIf="ShowOption=='show'">
+                <select class="form-control" formControlName="EmailType" form name="EmailType" (change)="SelectedOption($event)" >
+                    
+                    <option [ngValue]=" " >Create New</option>
+                    <option *ngFor="let list of Optionmodel" [ngValue]="list.name">
+                        {{list.name}}
+                    </option>
+                </select>
+            </div>
+
+            <nb-accordion>
+                <nb-accordion-item>
+                    <nb-accordion-item-header>
+                        {{ form.controls['items'].value[this.itemIndex].name ? form.controls['items'].value[this.itemIndex].name : 'New Template'
+                        }}
+                        
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body>
+                        <!-- <div formGroupName="template"> -->
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 col-form-label"> Name</label>
+                            <div class="col-sm-9">
+                                
+                                <input  class="full-width form-control" type="text" name="name" id="name" formControlName="name" placeholder="Name"
+                                    [(ngModel)]="model?.name ? model?.name :form.controls['items'].value[this.itemIndex].name"  [readonly]="namereadonly"
+                                    required>
+                                <!-- <show-errors [control]="form.controls['items']['controls'][itemIndex].controls.name"></show-errors> -->
+                                <!-- <input *ngIf="itemIndex==2" formControlName="name" [(ngModel)]="model.name" type="text" name="name" id="name" > -->
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="templateName" class="col-sm-3 col-form-label">Template Name</label>
+                            <div class="col-sm-9">
+                                <input nbInput class="full-width form-control" type="text" name="name" id="templateName" formControlName="templateName" placeholder="Template Name"
+                                    [(ngModel)]="form.controls['items'].value[this.itemIndex].templateName" required>
+                                <show-errors [control]="form.controls['items']['controls'][itemIndex].controls.templateName"></show-errors>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="notesDescription" class="col-sm-3 col-form-label">Notes/Description</label>
+                            <div class="col-sm-9">
+                                <textarea nbInput type="text" name="notesDescription" id="notesDescription" class="full-width form-control" formControlName="notesDescription"
+                                    placeholder="Notes" [(ngModel)]="form.controls['items'].value[this.itemIndex].notesDescription"
+                                    required></textarea>
+                                <show-errors [control]="form.controls['items']['controls'][itemIndex].controls.notesDescription"></show-errors>
+                            </div>
+                        </div>
+                        <div formArrayName="template">
+
+                            <div *ngFor="let item of form.controls['items']['controls'][itemIndex].controls['template']['controls']; let i = index;"
+                                class="remove-link edit-workflow-template-block-inside mrgn-btm-10">
+                                <nb-accordion>
+                                    <nb-accordion-item>
+                                        <nb-accordion-item-header>
+                                            <!-- {{(form.controls['items'].value[this.itemIndex]['template'][i].locale ? (form.controls['items'].value[this.itemIndex]['template'][i].locale
+                                            | locale | async) : 'new locale') }} -->
+                                            <!-- {{model.template[i].locale | locale | async }} -->
+                                        </nb-accordion-item-header>
+                                        <nb-accordion-item-body>
+                                            <div [formGroupName]="i">
+                                                <div class="row mrgn-left">
+                                                    <span></span>
+                                                    <span class="mrgn-btm-5">
+                                                        <i class="fa fa-times edit-remove-icon" *ngIf="this.form.controls['items']['controls'][itemIndex].controls['template']['controls'].length > 1 && i!=0"
+                                                            (click)="removeAddress1(i)"></i>
+                                                    </span>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="locale" class="col-sm-3 col-form-label">Locale</label>
+                                                    <div class="col-sm-9">
+                                                        <select class="full-width form-control" name="locale" formControlName="locale" (change)="localeevent($event,i,form.controls['items'].value[this.itemIndex].name);"
+                                                            [(ngModel)]="form.controls['items'].value[this.itemIndex]['template'][i].locale "
+                                                            [attr.disabled]="i==0 ? ' ' : null">
+                                                            <option *ngFor="let list of Optionlocale" [value]="list.locale">
+                                                                {{list.displayName}}
+                                                            </option>
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="defaultSubject" class="col-sm-3 col-form-label">Default Subject</label>
+                                                    <div class="col-sm-9">
+                                                        <input nbInput type="text" id="defaultSubject" class="full-width" placeholder="Default Subject" name="defaultSubject" formControlName="defaultSubject"
+                                                            [(ngModel)]="form.controls['items'].value[this.itemIndex]['template'][i].defaultSubject ">
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
+                                                    <label for="displayFromName" class="col-sm-3 col-form-label">Display From Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input nbInput type="text" id="displayFromName" class="full-width" placeholder="From Name" name="displayFromName" formControlName="displayFromName"
+                                                            [(ngModel)]="form.controls['items'].value[this.itemIndex]['template'][i].displayFromName ">
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="body" class="col-sm-3 col-form-label">Body</label>
+                                                    <div class="col-sm-9">
+                                                        <ckeditor id="body" name="body" formControlName="body" [config]="{ extraPlugins: 'divarea', height: '200' }" [(ngModel)]="form.controls['items'].value[this.itemIndex]['template'][i].body"></ckeditor>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </nb-accordion-item-body>
+                                    </nb-accordion-item>
+                                </nb-accordion>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <a class="a-link" (click)="addAddress1()">
+                                Create More locale
+                            </a>
+                        </div>
+
+
+
+
+
+                        <!-- </div> -->
+                    </nb-accordion-item-body>
+                </nb-accordion-item>
+            </nb-accordion>
+            <div class="form-group row sequnce-waitdays-row">
+                <label for="numberOfDaysToWait" class="col-sm-3 col-form-label">No. of Days to wait</label>
+                <div class="col-sm-3">
+
+                    <input nbInput type="number" formControlName="numberOfDaysToWait" class="full-width form-control" id="numberOfDaysToWait"
+                        placeholder="Number of days to wait" name="numberOfDaysToWait" [readonly]="readonlyfields" required>
+
+                    <show-errors [control]="form.controls['items']['controls'][itemIndex].controls.numberOfDaysToWait"></show-errors>
+                </div>
+                <label for="sequentialOrder" class="col-sm-3 col-form-label">Sequential Order</label>
+                <div class="col-sm-3">
+                    <input nbInput type="number" id="sequentialOrder" class="full-width form-control" placeholder="Sequence Order" name="sequentialOrder"
+                        formControlName="sequentialOrder" [readonly]="readonlyfields" required>
+                    <show-errors [control]="form.controls['items']['controls'][itemIndex].controls.sequentialOrder"></show-errors>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

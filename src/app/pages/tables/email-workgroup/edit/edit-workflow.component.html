@@ -1,0 +1,142 @@
+<!-- <nb-card>
+    <nb-card-header>Crete Email WorkFlow
+        <span class="buttons" (click)="closeModel()" style="float: right;">
+            <button _ngcontent-c24="" class="button">
+                <i _ngcontent-c24="" class="nb-close"></i>
+            </button>
+        </span>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="myForm" (ngSubmit)="submit(myForm)" novalidate>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="Tname">Template Name</label>
+                        <input nbInput type="text" id="Tname" name="Tname" formControlName="Tname" class="form-control" id="Tname" placeholder="Template Name">
+                        <show-errors [control]="myForm.controls.Tname"></show-errors>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div formArrayName="addresses">
+                <div *ngFor="let address of myForm.controls.addresses.controls; let i=index">
+                    <div>
+                        <span>Address {{i + 1}}</span>
+                        <span *ngIf="myForm.controls.addresses.controls.length > 1" (click)="removeAddress(i)">Remove
+                        </span>
+                    </div>
+                    <address [group]="myForm.controls.addresses.controls[i]"></address>
+                </div>
+            </div>
+            <button type="button" (click)="addAddress()">Add</button>
+            <button type="submit" [disabled]="!myForm.valid">Save</button>
+        </form>
+    </nb-card-body>
+</nb-card> -->
+
+
+<div class="col-md-12 col-lg-12 col-xxxl-12">
+    <nb-card>
+        <nb-card-header>Edit Email WorkFlow
+            <span class="buttons" (click)="closeModel()" style="float: right;">
+                <button _ngcontent-c24="" class="button">
+                    <i _ngcontent-c24="" class="nb-close"></i>
+                </button>
+            </span>
+        </nb-card-header>
+        <nb-card-body>
+            <!-- <nb-stepper orientation="vertical" #stepper>
+                <nb-step [stepControl]="myForm"> -->
+            <form [formGroup]="myForm" (ngSubmit)="onFirstSubmit(myForm)">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name">Template Name</label>
+                            <input nbInput type="text" id="name" name="name" formControlName="name" [style.height]="'48px'" class="form-control " id="name" [(ngModel)]="userModel.name"
+                                placeholder="Template Name">
+                            <show-errors [control]="myForm.controls.name"></show-errors>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" formControlName="description" class="form-control" placeholder="Enter Description"
+                                maxlength="140" [(ngModel)]="userModel.description" required></textarea>
+                            <show-errors [control]="myForm.controls.description"></show-errors>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select class="form-control" id="status" formControlName="status" [(ngModel)]="userModel.status" name="status" (change)="eventchange($event);"
+                                required>
+                                <!-- <option [ngValue]="null" selected >Select ID Type</option> -->
+                                <option *ngFor="let list of Type" [value]="list.value" [selected]="list.value == selected">
+                                    {{list.name}}
+                                </option>
+                            </select>
+                            <show-errors [control]="myForm.controls.status"></show-errors>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                            <!-- <div class="form-group"> -->
+    
+                            <label id="right-id-style">Recurrence</label>
+                            <ui-switch id="right-id-style" name="recurrence" formControlName="recurrence" [(ngModel)]="userModel.recurrence"></ui-switch>
+                            <!-- </div> -->
+                        </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="startTime">Select Start Time</label>
+
+                            <input nbInput class="form-control" placeholder="Select Start Time" [style.height]="'48px'" [selectMode]="'single'" [(ngModel)]="selectedMoments"
+                                [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1" formControlName="startTime" id="startTime"
+                                name="startTime" required>
+                            <owl-date-time #dtRange1></owl-date-time>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                            <div class="form-group">
+                                <label for="daterange">Select Start to End Time</label>
+                                
+                                <input class="form-control" placeholder="Date Time Range:" [style.width]="'350px'"  [selectMode]="'range'"
+                                    [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1" formControlName="daterange" id="daterange" name="daterange" required>
+                                <owl-date-time #dtRange1></owl-date-time>
+                            </div>
+                        </div> -->
+                <button nbButton *ngIf="!EnableSecond" type="submit" [disabled]="!myForm.valid">Next</button>
+
+            </form>
+            <!-- </nb-step>
+                <nb-step [stepControl]="secondForm"> -->
+            <form [formGroup]="secondForm" (ngSubmit)="onSecondSubmit()" *ngIf="EnableSecond" [hidden]="!myForm.valid">
+               <div class="btm-brdr">
+                <p>WorkFlow Template</p>
+               </div>
+                
+                <div *ngFor="let item of items; let i = index;" class="remove-link edit-workflow-template-block mrgn-btm-10">
+
+                    <div class="row "><span class="wdth-97"></span><span class="mrgn-btm-5"><i class="fa fa-times edit-remove-icon" *ngIf="secondForm.controls.items.controls.length > 1"  (click)="removeAddress(i)"></i></span>  
+                    </div>
+                   
+                    <app-details-fields [form]="secondForm" [item]="item" [itemIndex]="i" [status]="userModel.status" [groups]="secondForm.controls.items.controls[i]"></app-details-fields>
+                  
+                </div>
+                <a class="a-link" (click)="addNewTemplate()">Add New Template</a>
+
+                <div>
+                    <div>
+
+                        <button class="mrgn-top-10" nbButton type="submit" >Confirm</button>
+                    </div>
+                </div>
+            </form>
+            <!--  </nb-step>
+
+            </nb-stepper> -->
+        </nb-card-body>
+    </nb-card>
+</div>
